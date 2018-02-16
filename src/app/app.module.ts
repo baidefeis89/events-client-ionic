@@ -21,6 +21,7 @@ import { Facebook } from '@ionic-native/facebook';
 //Services
 import { AuthProvider } from '../providers/auth/auth';
 import { AuthInterceptor } from '../interceptors/auth-token-interceptor.service';
+import { EventProvider } from '../providers/events/events';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { AuthInterceptor } from '../interceptors/auth-token-interceptor.service'
     Camera,
     Geolocation,
     AuthProvider,
+    EventProvider,
     GooglePlus,
     Facebook
   ]

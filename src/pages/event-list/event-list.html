@@ -14,5 +14,21 @@
 
 
 <ion-content padding>
-
+  <ion-card *ngFor="let event of events">
+    <img [src]="event.image"/>
+    <ion-card-content>
+      <ion-card-title>
+       {{event.title}}
+        </ion-card-title>
+      <p>
+        {{event.description}}
+      </p>
+    </ion-card-content>
+    <ion-item>
+      <ion-avatar item-start>
+        <img [src]="event.creator.avatar">
+      </ion-avatar>
+      <h2>{{event.creator.name}}</h2>
+    </ion-item>
+  </ion-card>
 </ion-content>
