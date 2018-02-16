@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, AlertController } from 'ionic-angular';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { IUser } from '../../models/user';
+import { AuthProvider } from '../../providers/auth/auth';
+import { Geolocation } from '@ionic-native/geolocation';
 
 /**
  * Generated class for the RegisterPage page.
@@ -17,13 +20,35 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 })
 export class RegisterPage {
   cameraImage: any;
+  user: IUser = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-              private camera: Camera, private actionSheetCtrl: ActionSheetController) {
+              private camera: Camera, private actionSheetCtrl: ActionSheetController, 
+              private auth: AuthProvider, private alertCtrl: AlertController, private geolocation: Geolocation) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
+  }
+
+  ionViewWillLoad() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.user.lat = resp.coords.latitude;
+      this.user.lng = resp.coords.longitude;
+    }).catch((error) => {
+       console.log('Error getting location', error);
+    });
+  }
+
+  register() {
+    this.auth.register(this.user).subscribe( 
+      response => this.navCtrl.setRoot('EventListPage'),
+      error => this.alertCtrl.create({
+        title: 'Error',
+        subTitle: error,
+        buttons: ['OK']
+      }).present()
+    );
   }
 
   presentActionSheet() {
@@ -82,10 +107,10 @@ export class RegisterPage {
 
   private getPicture(options: CameraOptions) {
     this.camera.getPicture(options).then((imageData) => {
-      this.cameraImage = 'data:image/jpeg;base64,' + imageData;
-      }).catch( error => {
-        
-      });
+      this.user.avatar = 'data:image/jpeg;base64,' + imageData;
+    }).catch( error => {
+      
+    });
   }
 
 }

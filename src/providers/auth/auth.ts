@@ -33,6 +33,18 @@ export class AuthProvider {
       });
     }
 
+    register(user: IUser): Observable<{}> {
+        return this.http.post(`${this.url}/auth/register`, user)
+            .catch( (response: HttpErrorResponse) => {
+                if (response.status == 200) return Observable.throw(response.message);
+                else
+                    return Observable.throw(`Unknown error: ${response.statusText} (${response.status})`);
+            }).flatMap( (json: { ok: boolean, error: string, token: string }) => {
+                if (!json.ok) throw json.error;
+                return Observable.fromPromise(this.storage.set('token', json.token));
+            });
+    }
+
     loginGoogle() {
         return this.http
         .get(`${this.url}/auth/google`)
@@ -65,9 +77,9 @@ export class AuthProvider {
 
     isLogged(): Observable<boolean> {
         return Observable.fromPromise(this.storage.get('token'))
-            .flatMap(token => {
-                if (!token) return Observable.of(false);
-                return this.http
+        .flatMap(token => {
+            if (!token) return Observable.of(false);
+            return this.http
             .get(`${this.url}/auth/token`)
             .map((response: { ok: boolean }) => (response.ok ? true : false))
             .catch(error => Observable.of(false));

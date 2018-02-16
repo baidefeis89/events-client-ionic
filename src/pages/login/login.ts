@@ -57,7 +57,7 @@ export class LoginPage {
     this.auth.login(this.user).subscribe( 
       response => {
         this.navCtrl.setRoot('EventListPage');
-        this.navCtrl.popToRoot();
+        //this.navCtrl.popToRoot();
       },
       error => this.alertCtrl.create({
         title: 'Error',
@@ -73,7 +73,7 @@ export class LoginPage {
         this.auth.loginGoogle().subscribe( 
           response => {
             this.navCtrl.setRoot('EventListPage');
-            this.navCtrl.popToRoot();
+            //this.navCtrl.popToRoot();
           },
           error => this.alertCtrl.create({
             title: 'Error',
@@ -119,7 +119,7 @@ export class LoginPage {
           this.auth.loginFacebook().subscribe( 
             response => {
               this.navCtrl.setRoot('EventListPage');
-              this.navCtrl.popToRoot();
+              //this.navCtrl.popToRoot();
             },        
             error => this.alertCtrl.create({
               title: 'Error',
