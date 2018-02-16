@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
@@ -15,9 +15,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 //Native plugins
 import { Camera } from '@ionic-native/camera';
 import { Geolocation } from '@ionic-native/geolocation';
+import { GooglePlus } from '@ionic-native/google-plus';
+import { Facebook } from '@ionic-native/facebook';
 
 //Services
 import { AuthProvider } from '../providers/auth/auth';
+import { AuthInterceptor } from '../interceptors/auth-token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -41,9 +44,16 @@ import { AuthProvider } from '../providers/auth/auth';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
     Camera,
     Geolocation,
-    AuthProvider
+    AuthProvider,
+    GooglePlus,
+    Facebook
   ]
 })
 export class AppModule {}

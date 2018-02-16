@@ -34,12 +34,8 @@
   </div>
   
   <div padding>
-    <button ion-button icon-left><ion-icon name="logo-facebook"></ion-icon>Login with Facebook</button>
-    <button ion-button icon-left color="danger"><ion-icon name="logo-googleplus"></ion-icon>Login with Google</button>
-  </div>
-  <div>
-    {{ position | json }}
-    {{ user | json }}
+    <button ion-button icon-left (click)="loginFacebook()"><ion-icon name="logo-facebook"></ion-icon>Login with Facebook</button>
+    <button ion-button icon-left color="danger" (click)="loginGoogle()"><ion-icon name="logo-googleplus"></ion-icon>Login with Google</button>
   </div>
   
 </ion-content>
