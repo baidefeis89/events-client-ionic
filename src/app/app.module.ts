@@ -12,6 +12,8 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+//import { AgmCoreModule } from '@agm/core';
+
 //Native plugins
 import { Camera } from '@ionic-native/camera';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -22,6 +24,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { AuthProvider } from '../providers/auth/auth';
 import { AuthInterceptor } from '../interceptors/auth-token-interceptor.service';
 import { EventProvider } from '../providers/events/events';
+import { UserProvider } from '../providers/users/users';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { EventProvider } from '../providers/events/events';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    /*AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCTa_i6W9Hse6NcxF3IUUQjCFHWSdtut6A'
+    })*/
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -55,7 +61,8 @@ import { EventProvider } from '../providers/events/events';
     AuthProvider,
     EventProvider,
     GooglePlus,
-    Facebook
+    Facebook,
+    UserProvider
   ]
 })
 export class AppModule {}

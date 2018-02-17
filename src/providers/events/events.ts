@@ -29,6 +29,16 @@ export class EventProvider {
         });
     }
 
+    getEventsFromUser(idUser): Observable<IEvent[]> {
+        return this.http.get(`${this.url}/events/user/${idUser}`).flatMap( (res: IResponse) => {
+            if (!res.ok) throw res.error;
+            res.events.map( ev => {
+                ev.image = `${this.url}/img/events/${ev.image}`;
+            });
+            return Observable.of(res.events);
+        });
+    }
+
     getEvent(eventId: number): Observable<IEvent> {
         return this.http.get(`${this.url}/events/${eventId}`).flatMap( (res: IResponse) => {
             if (!res.ok) throw res.error;

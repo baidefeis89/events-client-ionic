@@ -26,7 +26,10 @@ export class MyApp {
       { title: 'Login', component: 'LoginPage' },
       { title: 'Register', component: 'RegisterPage' },
       { title: 'Event list', component: 'EventListPage' },
-      { title: 'Event details', component: 'EventDetailPage' }
+      { title: 'Event details', component: 'EventDetailPage' },
+      { title: 'Profile', component: 'ProfilePage' },
+      { title: 'User events', component: 'EventUserPage' }
+
     ];
 
   }

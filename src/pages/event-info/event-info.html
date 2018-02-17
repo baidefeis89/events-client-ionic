@@ -35,7 +35,7 @@
         </ion-item>
         
       </ion-card-content>
-      <ion-item>
+      <ion-item (click)="showProfile(event.creator.id)">
         <ion-avatar item-start>
           <img [src]="event.creator.avatar">
         </ion-avatar>

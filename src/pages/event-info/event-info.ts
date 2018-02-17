@@ -42,6 +42,13 @@ export class EventInfoPage {
     confirm.present();
   }
 
+  showProfile(userId) {
+    if (!this.event.mine)
+      this.navCtrl.parent.parent.push('ProfilePage', userId);
+    else 
+      this.navCtrl.parent.parent.push('ProfilePage');
+  }
+
   remove() {
     console.log('Agree clicked');
     this.eventService.deleteEvent(this.event.id).subscribe( 

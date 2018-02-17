@@ -1,0 +1,65 @@
+<!--
+  Generated template for the EventUserPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>event-user</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div padding>
+        <ion-segment [(ngModel)]="showEvents">
+          <ion-segment-button value="attend">
+            Attend
+          </ion-segment-button>
+          <ion-segment-button value="created">
+            Created
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+      
+      <div [ngSwitch]="showEvents">
+        <ion-list *ngSwitchCase="'created'">
+            <ion-item *ngIf="eventsFrom.length < 1">No events to show</ion-item>
+            <ion-card *ngFor="let event of eventsFrom" (click)="showDetails(event)">
+                <img [src]="event.image"/>
+                <ion-card-content>
+                  <ion-card-title>
+                   {{event.title}}
+                    </ion-card-title>
+                  <p>
+                    {{event.description}}
+                  </p>
+                </ion-card-content>
+              </ion-card>
+        </ion-list>
+      
+        <ion-list *ngSwitchCase="'attend'">
+            <ion-item *ngIf="eventsAttend.length < 1">No events to show</ion-item>
+            <ion-card *ngFor="let event of eventsAttend" (click)="showDetails(event)">
+                <img [src]="event.image"/>
+                <ion-card-content>
+                  <ion-card-title>
+                   {{event.title}}
+                    </ion-card-title>
+                  <p>
+                    {{event.description}}
+                  </p>
+                </ion-card-content>
+                <ion-item>
+                    <ion-avatar item-start>
+                      <img [src]="event.creator.avatar">
+                    </ion-avatar>
+                    <h2>{{event.creator.name}}</h2>
+                  </ion-item>
+              </ion-card>
+        </ion-list>
+      </div>
+</ion-content>

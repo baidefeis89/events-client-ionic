@@ -8,4 +8,5 @@ export interface IUser {
     name?: string,
     lat?: number,
     lng?: number
+    me?: boolean
 }
