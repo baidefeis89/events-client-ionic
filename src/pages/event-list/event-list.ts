@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Refresher, InfiniteScroll } from 'ionic-angular';
 import { EventProvider } from '../../providers/events/events';
 import { IEvent } from '../../models/event';
 
@@ -17,18 +17,42 @@ import { IEvent } from '../../models/event';
 })
 export class EventListPage {
   events: IEvent[];
+  //finished: boolean = false;
+  //items: String[] = [];
+  //num = 1;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private eventService: EventProvider) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EventListPage');
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+              private eventService: EventProvider) {
   }
 
   ionViewWillLoad() {
+    this.getEvents();
+    //this.loadMoreItems(null);
+  }
+
+  refreshItems(refresher: Refresher) {
+    this.getEvents();
+    refresher.complete();
+  }
+  
+  getEvents() {
     this.eventService.getEvents().subscribe( res => {
       this.events = res;
     });
   }
+
+  /*loadMoreItems(infinite: InfiniteScroll) {
+    // Simulating an external service call with a timeout
+
+    let max = this.num + 15; 
+    for(;this.num < max; this.num++) {
+      this.items.push("Item " + this.num); 
+    }
+    if(this.num >= 60) { // We'll load a maximum of 60 items this.finished = true;
+    }
+    if(infinite != null) { infinite.complete(); // Hide the loader
+    }
+
+  }*/
 
 }
