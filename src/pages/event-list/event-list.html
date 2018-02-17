@@ -18,7 +18,7 @@
     <ion-refresher-content pullingText="Pull to refresh" refreshingText="Refreshing...">
     </ion-refresher-content> 
   </ion-refresher>
-  <ion-card *ngFor="let event of events">
+  <ion-card *ngFor="let event of events" (click)="showDetails(event)">
     <img [src]="event.image"/>
     <ion-card-content>
       <ion-card-title>

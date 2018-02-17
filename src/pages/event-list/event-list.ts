@@ -41,6 +41,10 @@ export class EventListPage {
     });
   }
 
+  showDetails(event) {
+    this.navCtrl.push('EventDetailPage', event);
+  }
+
   /*loadMoreItems(infinite: InfiniteScroll) {
     // Simulating an external service call with a timeout
 

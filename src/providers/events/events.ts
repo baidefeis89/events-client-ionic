@@ -29,4 +29,23 @@ export class EventProvider {
         });
     }
 
+    getEvent(eventId: number): Observable<IEvent> {
+        return this.http.get(`${this.url}/events/${eventId}`).flatMap( (res: IResponse) => {
+            if (!res.ok) throw res.error;
+            res.event.image = `${this.url}/img/events/${res.event.image}`;
+            res.event.creator.avatar = `${this.url}/img/users/${res.event.creator.avatar}`;
+            return Observable.of(res.event);
+        });
+    }
+
+    getAttend(eventId: number): Observable<any> {
+        return this.http.get(`${this.url}/users/event/${eventId}`).flatMap( (res: IResponse) => {
+            if (!res.ok) throw res.error;
+            res.result.map( user => {
+                user.avatar = `${this.url}/img/users/${user.avatar}`
+            });
+            return Observable.of(res.result);
+        })
+    }
+
 }

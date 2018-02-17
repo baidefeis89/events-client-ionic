@@ -69,9 +69,9 @@ export class AuthProvider {
             return Observable.throw(
               `Unknown error: ${response.statusText} (${response.status})`
             );
-        }).flatMap((json: { ok: boolean; error: string; token: string }) => {
+        }).flatMap( (json: { ok: boolean, error: string, token: string }) => {
           if (!json.ok) throw json.error;
-          return Observable.fromPromise(this.storage.set('token', json.token));
+          return Observable.fromPromise(this.storage.remove('token').then( () => this.storage.set('token', json.token)));
         });
     }
 
