@@ -42,4 +42,8 @@
         <h2>{{event.creator.name}}</h2>
       </ion-item>
     </ion-card>
+    <button ion-button icon-left color="danger" block (click)="deleteEvent()" *ngIf="event.mine">
+      <ion-icon name="trash"></ion-icon>
+      Remove event
+    </button>
 </ion-content>

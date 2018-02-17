@@ -25,9 +25,8 @@ export class EventListPage {
               private eventService: EventProvider) {
   }
 
-  ionViewWillLoad() {
+  ionViewDidEnter() {
     this.getEvents();
-    //this.loadMoreItems(null);
   }
 
   refreshItems(refresher: Refresher) {

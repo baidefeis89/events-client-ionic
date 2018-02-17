@@ -48,4 +48,11 @@ export class EventProvider {
         })
     }
 
+    deleteEvent(eventId: number): Observable<boolean> {
+        return this.http.delete(`${this.url}/events/${eventId}`).flatMap( (res: IResponse) => {
+            if (!res.ok) throw res.error;
+            return Observable.of(true);
+        });
+    }
+
 }
