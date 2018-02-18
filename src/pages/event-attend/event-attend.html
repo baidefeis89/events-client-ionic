@@ -1,0 +1,26 @@
+<!--
+  Generated template for the EventAttendPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>event-attend</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+        <ion-item *ngFor="let user of users" (click)="showProfile(user.id)">
+          <ion-avatar item-start>
+            <img [src]="user.avatar">
+          </ion-avatar>
+          <h2>{{user.name}}</h2>
+          asdf
+        </ion-item>
+      </ion-list>
+</ion-content>

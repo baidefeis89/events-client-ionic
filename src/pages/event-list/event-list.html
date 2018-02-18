@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle left>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>eventList</ion-title>
   </ion-navbar>
 
@@ -14,5 +17,31 @@
 
 
 <ion-content padding>
-
+  <ion-refresher (ionRefresh)="refreshItems($event)">
+    <ion-refresher-content pullingText="Pull to refresh" refreshingText="Refreshing...">
+    </ion-refresher-content> 
+  </ion-refresher>
+  <button ion-button block (click)="newEvent()">New event</button>
+  <ion-card *ngFor="let event of events" (click)="showDetails(event)">
+    <img [src]="event.image"/>
+    <ion-card-content>
+      <ion-card-title>
+       {{event.title}}
+        </ion-card-title>
+      <p>
+        {{event.description}}
+      </p>
+    </ion-card-content>
+    <ion-item>
+      <ion-avatar item-start>
+        <img [src]="event.creator.avatar">
+      </ion-avatar>
+      <h2>{{event.creator.name}}</h2>
+    </ion-item>
+  </ion-card>
+  <!--<ion-infinite-scroll (ionInfinite)="loadMoreItems($event)" [enabled]="!finished">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."> 
+        
+      </ion-infinite-scroll-content>
+  </ion-infinite-scroll>-->
 </ion-content>

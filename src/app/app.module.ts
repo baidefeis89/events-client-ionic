@@ -12,6 +12,8 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+//import { AgmCoreModule } from '@agm/core';
+
 //Native plugins
 import { Camera } from '@ionic-native/camera';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -21,12 +23,16 @@ import { Facebook } from '@ionic-native/facebook';
 //Services
 import { AuthProvider } from '../providers/auth/auth';
 import { AuthInterceptor } from '../interceptors/auth-token-interceptor.service';
+import { EventProvider } from '../providers/events/events';
+import { UserProvider } from '../providers/users/users';
+//import { GmapsAutocompleteDirective } from '../providers/gmaps-autocomplete.directive';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage
+    //GmapsAutocompleteDirective
   ],
   imports: [
     BrowserModule,
@@ -52,8 +58,10 @@ import { AuthInterceptor } from '../interceptors/auth-token-interceptor.service'
     Camera,
     Geolocation,
     AuthProvider,
+    EventProvider,
     GooglePlus,
-    Facebook
+    Facebook,
+    UserProvider
   ]
 })
 export class AppModule {}

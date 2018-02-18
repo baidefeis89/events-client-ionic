@@ -18,22 +18,27 @@
 
     <ion-item>
       <ion-label floating>Name</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [(ngModel)]="user.name"></ion-input>
     </ion-item>
     
     <ion-item>
       <ion-label floating>Email</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label floating>Repeat email</ion-label>
+      <ion-input type="text" [(ngModel)]="user.email2"></ion-input>
     </ion-item>
   
     <ion-item>
       <ion-label floating>Password</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input type="password" [(ngModel)]="user.password"></ion-input>
     </ion-item>
     
     <ion-item>
       <ion-label floating>Repeat password</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input type="password" [(ngModel)]="user.password2"></ion-input>
     </ion-item>
     
     <ion-item>
@@ -43,8 +48,11 @@
     
     <ion-item>
       <h2>Show image</h2>
-     <div><img [src]="cameraImage" alt=""></div>
+     <div><img [src]="user.avatar" alt=""></div>
     </ion-item>
-
+    
+    <ion-item>
+        <button ion-button block large (click)="register()">Register</button>
+    </ion-item>
   </ion-list>
 </ion-content>

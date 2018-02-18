@@ -33,6 +33,18 @@ export class AuthProvider {
       });
     }
 
+    register(user: IUser): Observable<{}> {
+        return this.http.post(`${this.url}/auth/register`, user)
+            .flatMap( (json: { ok: boolean, error: string, token: string }) => {
+                if (!json.ok) {
+                    console.log('error:',json.error);
+                    throw json.error;
+                }
+                console.log('register:',json.token);
+                return Observable.fromPromise(this.storage.set('token', json.token));
+            });
+    }
+
     loginGoogle() {
         return this.http
         .get(`${this.url}/auth/google`)
@@ -57,17 +69,17 @@ export class AuthProvider {
             return Observable.throw(
               `Unknown error: ${response.statusText} (${response.status})`
             );
-        }).flatMap((json: { ok: boolean; error: string; token: string }) => {
+        }).flatMap( (json: { ok: boolean, error: string, token: string }) => {
           if (!json.ok) throw json.error;
-          return Observable.fromPromise(this.storage.set('token', json.token));
+          return Observable.fromPromise(this.storage.remove('token').then( () => this.storage.set('token', json.token)));
         });
     }
 
     isLogged(): Observable<boolean> {
         return Observable.fromPromise(this.storage.get('token'))
-            .flatMap(token => {
-                if (!token) return Observable.of(false);
-                return this.http
+        .flatMap(token => {
+            if (!token) return Observable.of(false);
+            return this.http
             .get(`${this.url}/auth/token`)
             .map((response: { ok: boolean }) => (response.ok ? true : false))
             .catch(error => Observable.of(false));
