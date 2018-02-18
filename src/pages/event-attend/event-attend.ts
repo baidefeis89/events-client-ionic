@@ -26,4 +26,8 @@ export class EventAttendPage {
     });
   }
 
+  showProfile(idUser) {
+    this.navCtrl.parent.parent.push('ProfilePage', idUser);
+  }
+
 }
