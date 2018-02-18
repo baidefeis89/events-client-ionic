@@ -38,9 +38,9 @@ export class UserProvider {
             });
     }
 
-    editAvatar(user: IUser): Observable<boolean> {
+    editAvatar(avatar): Observable<boolean> {
         let data = {
-            avatar: user.avatar
+            avatar: avatar
         };
 
         return this.http.put(`${this.urlServer}users/me/avatar`, data)
