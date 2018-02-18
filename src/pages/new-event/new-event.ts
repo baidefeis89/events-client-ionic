@@ -1,13 +1,12 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, AlertController } from 'ionic-angular';
-
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IEvent } from '../../models/event';
+import { EventProvider } from '../../providers/events/events';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { IUser } from '../../models/user';
-import { AuthProvider } from '../../providers/auth/auth';
-import { Geolocation } from '@ionic-native/geolocation';
+import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
 
 /**
- * Generated class for the RegisterPage page.
+ * Generated class for the NewEventPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -15,42 +14,52 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 @IonicPage()
 @Component({
-  selector: 'page-register',
-  templateUrl: 'register.html',
+  selector: 'page-new-event',
+  templateUrl: 'new-event.html',
 })
-export class RegisterPage {
-  cameraImage: any;
-  user: IUser = {};
+export class NewEventPage {
+  event: IEvent = {};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
-              private camera: Camera, private actionSheetCtrl: ActionSheetController, 
-              private auth: AuthProvider, private alertCtrl: AlertController, private geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera,
+              private eventService: EventProvider, private alertCtrl: AlertController,
+              private actionSheetCtrl: ActionSheetController) {
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
+    console.log('ionViewDidLoad NewEventPage');
   }
 
-  ionViewWillLoad() {
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.user.lat = resp.coords.latitude;
-      this.user.lng = resp.coords.longitude;
-    }).catch((error) => {
-       console.log('Error getting location', error);
-    });
-  }
-
-  register() {
-    this.auth.register(this.user).subscribe( 
-      response => this.navCtrl.setRoot('EventListPage'),
-      error => {this.alertCtrl.create({
+  create() {
+    this.eventService.addEvent(this.event).subscribe( 
+      res => {
+        this.navCtrl.pop();
+        this.alertCtrl.create({
+          title: 'Success',
+          subTitle: 'Event created successfully',
+          buttons: [
+            {
+              text: 'OK'
+            }
+          ]
+        })
+      },
+      error => this.alertCtrl.create({
         title: 'Error',
         subTitle: error,
-        buttons: ['OK']
-      }).present();
-      console.log(error);
-    }
-    );
+        buttons: [
+          {
+            text: 'OK'
+          }
+        ]
+      })
+
+    )
+  }
+
+  changePosition(pos: google.maps.LatLng) { 
+    this.event.lat = pos.lat();
+    this.event.lng = pos.lng();
   }
 
   presentActionSheet() {
@@ -109,7 +118,7 @@ export class RegisterPage {
 
   private getPicture(options: CameraOptions) {
     this.camera.getPicture(options).then((imageData) => {
-      this.user.avatar = 'data:image/jpeg;base64,' + imageData;
+      this.event.image = 'data:image/jpeg;base64,' + imageData;
     }).catch( error => {
       
     });

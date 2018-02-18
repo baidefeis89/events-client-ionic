@@ -25,21 +25,20 @@ import { AuthProvider } from '../providers/auth/auth';
 import { AuthInterceptor } from '../interceptors/auth-token-interceptor.service';
 import { EventProvider } from '../providers/events/events';
 import { UserProvider } from '../providers/users/users';
+//import { GmapsAutocompleteDirective } from '../providers/gmaps-autocomplete.directive';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage
+    //GmapsAutocompleteDirective
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
-    IonicStorageModule.forRoot(),
-    /*AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCTa_i6W9Hse6NcxF3IUUQjCFHWSdtut6A'
-    })*/
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

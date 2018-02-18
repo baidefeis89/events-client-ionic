@@ -33,6 +33,10 @@ export class EventListPage {
     this.getEvents();
     refresher.complete();
   }
+
+  newEvent() {
+    this.navCtrl.push('NewEventPage');
+  }
   
   getEvents() {
     this.eventService.getEvents().subscribe( res => {

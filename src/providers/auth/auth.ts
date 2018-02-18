@@ -35,12 +35,12 @@ export class AuthProvider {
 
     register(user: IUser): Observable<{}> {
         return this.http.post(`${this.url}/auth/register`, user)
-            .catch( (response: HttpErrorResponse) => {
-                if (response.status == 200) return Observable.throw(response.message);
-                else
-                    return Observable.throw(`Unknown error: ${response.statusText} (${response.status})`);
-            }).flatMap( (json: { ok: boolean, error: string, token: string }) => {
-                if (!json.ok) throw json.error;
+            .flatMap( (json: { ok: boolean, error: string, token: string }) => {
+                if (!json.ok) {
+                    console.log('error:',json.error);
+                    throw json.error;
+                }
+                console.log('register:',json.token);
                 return Observable.fromPromise(this.storage.set('token', json.token));
             });
     }

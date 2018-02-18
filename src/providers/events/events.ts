@@ -48,6 +48,14 @@ export class EventProvider {
         });
     }
 
+    addEvent(event: IEvent): Observable<boolean> { 
+        return this.http.post(`${this.url}/events`, event).map( (response: {ok: boolean, error?: string}) => {
+          if (response.ok) return response.ok;
+          console.log(response.error);
+          throw response.error;
+        });
+      }
+
     getAttend(eventId: number): Observable<any> {
         return this.http.get(`${this.url}/users/event/${eventId}`).flatMap( (res: IResponse) => {
             if (!res.ok) throw res.error;
