@@ -25,6 +25,10 @@ export class EventUserPage {
     this.eventService.getEventsFromUser(idUser).subscribe( res => {
       this.eventsFrom = res;
     });
+    this.eventService.getEventsUserAttend(idUser).subscribe( res => {
+      this.eventsAttend = res;
+    });
+
     this.showEvents = 'created';
   }
 
